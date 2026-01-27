@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app';
+import { definePageMeta } from '#imports';
 import VButtonPrimary from '~/components/buttons/VButtonPrimary.vue';
 
 const { error } = defineProps<{ error: NuxtError }>()
+definePageMeta({
+    layout: 'error'
+})
 </script>
 
 <template>
@@ -14,7 +18,7 @@ const { error } = defineProps<{ error: NuxtError }>()
             {{ error.status == 404 ? 'Страница не найдена, вернитесь на главную страницу' : 'Что-то пошло не так...' }}
         </div>
         <div>
-            <VButtonPrimary :style="{ width: '301px', display:'inline-block' }" href="/">
+            <VButtonPrimary :style="{ width: '301px', display: 'inline-block' }" href="/">
                 На главную
             </VButtonPrimary>
         </div>
