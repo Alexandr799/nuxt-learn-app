@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app';
 import { definePageMeta } from '#imports';
-import VButtonPrimary from '~/components/buttons/VButtonPrimary.vue';
+import VButtonPrimary from './components/ui/buttons/VButtonPrimary.vue';
 
 const { error } = defineProps<{ error: NuxtError }>()
 definePageMeta({

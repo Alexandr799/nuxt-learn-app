@@ -383,6 +383,7 @@ template {
     --color-2: #191919;
     --color-3: #292929;
     --color-4: #E6E6E6;
+    --color-5: #757575;
 }
 
 * {
@@ -394,12 +395,26 @@ template {
 }
 
 button {
-  appearance: none;      /* Убирает стили ОС */
-  background: none;      /* Убирает фон */
-  border: none;          /* Убирает рамку */
-  padding: 0;            /* Убирает отступы */
-  font: inherit;         /* Наследует шрифт */
-  color: inherit;        /* Наследует цвет текста */
-  cursor: pointer;       /* Возвращает курсор-руку */
-  outline: none;         /* Убирает фокус (лучше заменить на стили фокуса) */
+    appearance: none;
+    /* Убирает стили ОС */
+    background: none;
+    /* Убирает фон */
+    border: none;
+    /* Убирает рамку */
+    padding: 0;
+    /* Убирает отступы */
+    font: inherit;
+    /* Наследует шрифт */
+    color: inherit;
+    /* Наследует цвет текста */
+    cursor: pointer;
+    /* Возвращает курсор-руку */
+    outline: none;
+    /* Убирает фокус (лучше заменить на стили фокуса) */
+}
+
+body {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--color-3);
 }
