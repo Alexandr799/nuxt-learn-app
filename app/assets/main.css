@@ -392,3 +392,14 @@ template {
 * {
     font-family: "DM Sans", sans-serif;
 }
+
+button {
+  appearance: none;      /* Убирает стили ОС */
+  background: none;      /* Убирает фон */
+  border: none;          /* Убирает рамку */
+  padding: 0;            /* Убирает отступы */
+  font: inherit;         /* Наследует шрифт */
+  color: inherit;        /* Наследует цвет текста */
+  cursor: pointer;       /* Возвращает курсор-руку */
+  outline: none;         /* Убирает фокус (лучше заменить на стили фокуса) */
+}
