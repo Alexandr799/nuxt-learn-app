@@ -14,7 +14,7 @@ import { NuxtIconCss } from '@nuxt/icon/runtime/components/css.js';
             </div>
             <div>
                 <button>
-                                    <nuxt-icon-css name="icons:exit" />
+                    <nuxt-icon-css name="icons:exit" />
                 </button>
             </div>
         </div>
@@ -42,5 +42,14 @@ import { NuxtIconCss } from '@nuxt/icon/runtime/components/css.js';
 .content {
     flex-grow: 1;
     padding: 20px 60px 40px 60px;
+}
+
+.page-enter-active, .page-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+
+
+.page-enter-from, .page-leave-to {
+  opacity: 0;
 }
 </style>
