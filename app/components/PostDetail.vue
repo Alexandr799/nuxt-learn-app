@@ -24,12 +24,12 @@ const { post } = defineProps<{ post: Post }>()
         <div style="position: relative;">
             <NuxtLink :to="`/post/${post.id}`" style="position: absolute;left: 0;right: 0;top: 0;bottom: 0;" />
             <div>
-                <h3 class="title">
+                <h1 class="title">
                     {{ (post.title) }}
-                </h3>
+                </h1>
             </div>
 
-            <div class="lead clamp">
+            <div class="lead">
                 {{ post.content }}
             </div>
         </div>
@@ -52,21 +52,6 @@ const { post } = defineProps<{ post: Post }>()
                         {{ post.dislikes }}
                     </span>
                 </div>
-            </div>
-            <div class="edit-block">
-                <button>
-                    <NuxtIconCss name="icons:trash" />
-                </button>
-                <button>
-                    <span class="edit-button">
-                        <span>
-                            <NuxtIconCss name="icons:edit" />
-                        </span>
-                        <span>
-                            Изменить
-                        </span>
-                    </span>
-                </button>
             </div>
         </div>
     </article>
@@ -91,19 +76,10 @@ const { post } = defineProps<{ post: Post }>()
 }
 
 .lead {
-    margin-bottom: 12px;
+    margin-bottom: 30px;
     font-weight: 300;
     color: var(--color-3);
     line-height: 24px;
-}
-
-.clamp {
-    line-clamp: 2;
-    -webkit-line-clamp: 2;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    width: 100%;
 }
 
 .logo {
@@ -134,15 +110,5 @@ const { post } = defineProps<{ post: Post }>()
 .like-block {
     display: flex;
     gap: 12px;
-}
-
-.edit-block {
-    display: flex;
-    gap: 16px;
-}
-
-.edit-button {
-    display: flex;
-    gap: 4px;
 }
 </style>
