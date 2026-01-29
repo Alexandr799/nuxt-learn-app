@@ -12,10 +12,9 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     '@nuxt/icon',
   ],
-  app: {
-    pageTransition: {
-      name: 'page',
-      mode: 'out-in'
+  runtimeConfig: {
+    public: {
+      API_URL: 'http://localhost:8080'
     }
   },
   icon: {
