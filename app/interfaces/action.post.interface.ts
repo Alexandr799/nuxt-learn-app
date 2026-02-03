@@ -1,0 +1,1 @@
+export interface ActionPost { id: number, action: 'liked' | 'dislike' }

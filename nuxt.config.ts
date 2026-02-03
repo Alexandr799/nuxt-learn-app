@@ -11,6 +11,8 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/scripts',
     '@nuxt/icon',
+    '@pinia/nuxt',
+    'pinia-plugin-persistedstate/nuxt'
   ],
   runtimeConfig: {
     public: {

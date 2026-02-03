@@ -1,9 +1,24 @@
 <script setup lang="ts">
+import { useActionPostStore } from '#imports';
 import { NuxtIconCss } from '@nuxt/icon/runtime/components/css.js';
 import type { Post } from '~/interfaces/post.interface';
 import { timeAgo } from '~/utils';
 
-const { post } = defineProps<{ post: Post }>()
+const props = defineProps<{ post: Post }>()
+const emit = defineEmits<{
+    (e: 'updatePost', post: Post): void
+}>()
+const actionPostStore = useActionPostStore()
+async function like(id: number) {
+    const newPost = await actionPostStore.toogleLike(id)
+    emit('updatePost', newPost)
+}
+
+async function disLike(id: number) {
+    const newPost = await actionPostStore.toogleDislike(id)
+    emit('updatePost', newPost)
+}
+
 </script>
 
 <template>
@@ -17,36 +32,37 @@ const { post } = defineProps<{ post: Post }>()
                 PurpleSchool
             </div>
             <div class="data">
-                {{ timeAgo(post.published_at) }}
+                {{ timeAgo(props.post.published_at) }}
             </div>
         </div>
 
         <div style="position: relative;">
-            <NuxtLink :to="`/post/${post.id}`" style="position: absolute;left: 0;right: 0;top: 0;bottom: 0;" />
+            <NuxtLink :to="`/post/${props.post.id}`" style="position: absolute;left: 0;right: 0;top: 0;bottom: 0;" />
             <div>
                 <h3 class="title">
-                    {{ (post.title) }}
+                    {{ (props.post.title) }}
                 </h3>
             </div>
 
             <div class="lead clamp">
-                {{ post.content }}
+                {{ props.post.content }}
             </div>
         </div>
 
         <div class="foot">
             <div class="like-block">
                 <div>
-                    <button>
-                        <NuxtIconCss name="icons:like" />
+                    <button @click="like(post.id)">
+                        <NuxtIconCss :name="actionPostStore.existsLike(post.id) ? 'icons:like-fill' : 'icons:like'" />
                     </button>
                     <span>
                         {{ post.likes }}
                     </span>
                 </div>
                 <div>
-                    <button>
-                        <NuxtIconCss name="icons:dislike" />
+                    <button @click="disLike(post.id)">
+                        <NuxtIconCss
+                            :name="actionPostStore.existsDislike(post.id) ? 'icons:dislike-fill' : 'icons:dislike'" />
                     </button>
                     <span>
                         {{ post.dislikes }}
