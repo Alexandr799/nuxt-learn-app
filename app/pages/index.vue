@@ -63,6 +63,10 @@ const updatePost = (post: Post) => {
     }
     dataPosts.data.value.posts[index] = post
 }
+
+function changePage(page: number) {
+    pageCurrent.value = page
+}
 </script>
 
 <template>
@@ -77,6 +81,12 @@ const updatePost = (post: Post) => {
     <div class="post-wrapper" v-for="(post, index) in dataPosts.data.value?.posts">
         <PostCard :key="post.id" :post="post" @update-post="updatePost" />
     </div>
+    <Pagination
+        v-if="dataPosts.data.value"
+        :current-page="dataPosts.data.value.page"
+        :total-pages="dataPosts.data.value.total_pages"
+        @change-page="changePage"
+    />
 </template>
 
 <style scoped>
