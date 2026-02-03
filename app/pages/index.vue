@@ -1,17 +1,29 @@
 <script setup lang="ts">
 import { useFetch } from '#app';
 import { computed, ref, warn, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { apiRoutes } from '~/api';
 import type { GetPostsResponse } from '~/interfaces/post.get.interface';
 import type { Post } from '~/interfaces/post.interface';
+import { queryParamToInt, queryParamToString } from '~/utils';
 
 const SORTS = {
     date: 'По дате',
     rating: 'По рейтингу'
 }
+// Типовый гвард
+function isSortKey(key: string): key is keyof typeof SORTS {
+    return key in SORTS
+}
+const router = useRouter()
+const route = useRoute()
 
-const checkedSort = ref<keyof typeof SORTS>('date')
-const pageCurrent = ref<number>(1)
+
+const sortType = queryParamToString(route.query.sort) ?? ''
+const checkedSort = ref<keyof typeof SORTS>(
+    isSortKey(sortType) ? sortType : 'date'
+)
+const pageCurrent = ref<number>(queryParamToInt(route.query.page) ?? 1)
 const dataPosts = await useFetch<GetPostsResponse>(apiRoutes().posts, {
     query: {
         sort: checkedSort,
@@ -32,8 +44,13 @@ function sortChange<T extends keyof typeof SORTS>(value: T) {
 watch(() => ({
     checkedSort: checkedSort.value,
     pageCurrent: pageCurrent.value
-}), async () => {
-    dataPosts.refresh()
+}), async (data) => {
+    router.replace({
+        query:
+            { sort: data.checkedSort, page: data.pageCurrent }
+    });
+
+    await dataPosts.refresh()
 })
 
 const updatePost = (post: Post) => {
