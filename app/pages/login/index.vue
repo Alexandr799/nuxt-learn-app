@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { definePageMeta } from '#imports';
+import { definePageMeta, useSeoMeta } from '#imports';
 import AuthForm from '~/components/form/AuthForm.vue';
 
 definePageMeta({
     layout: 'auth',
     middleware: 'noauth'
 })
+
+useSeoMeta({
+    title: 'Авторизация',
+    description: 'Сайт для голосования по идеям.'
+});
+
 </script>
 <template>
     <main class="wrapper" style="min-height: 100vh;">
@@ -15,7 +21,7 @@ definePageMeta({
     </main>
 </template>
 
-<style scoped >
+<style scoped>
 .wrapper {
     display: flex;
     align-items: center;

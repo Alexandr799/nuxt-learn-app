@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { definePageMeta } from '#imports';
+import { definePageMeta, useSeoMeta } from '#imports';
 
 definePageMeta({
     middleware: 'auth'
 })
+useSeoMeta({
+    title: 'Редактирование поста',
+    description: 'Редактирование пост для голосования.'
+});
 </script>
 
 <template>
