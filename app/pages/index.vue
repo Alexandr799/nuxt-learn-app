@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useFetch } from '#app';
+import { useFetch, useSeoMeta } from '#app';
 import { computed, ref, warn, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { apiRoutes } from '~/api';
@@ -11,6 +11,10 @@ const SORTS = {
     date: 'По дате',
     rating: 'По рейтингу'
 }
+useSeoMeta({
+    title:'Главная',
+    description: 'Сайт для голосования по идеям.'
+});
 // Типовый гвард
 function isSortKey(key: string): key is keyof typeof SORTS {
     return key in SORTS
