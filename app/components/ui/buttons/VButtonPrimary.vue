@@ -17,7 +17,7 @@ const { href } = defineProps<{ href?: string }>()
     outline: none;
     border: none;
     text-decoration: none;
-    color: var(--color-1);
+    color: var(--color-1) !important;
     background-color: var(--color-2);
     font-weight: 500;
     font-size: 16px;
@@ -26,5 +26,9 @@ const { href } = defineProps<{ href?: string }>()
     cursor: pointer;
     border-radius: 20px;
     text-align: center;
+}
+
+.primary:disabled {
+    background-color: var(--color-7);
 }
 </style>

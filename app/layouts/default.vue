@@ -1,7 +1,16 @@
 <script setup lang="ts">
 
+import { navigateTo, useAuthStore } from '#imports';
 import { NuxtIconCss } from '@nuxt/icon/runtime/components/css.js';
-
+const store = useAuthStore()
+const exit = () => {
+    if (store.token) {
+        store.logout()
+        navigateTo('/login')
+    } else {
+        navigateTo('/login')
+    }
+}
 </script>
 
 <template>
@@ -13,9 +22,15 @@ import { NuxtIconCss } from '@nuxt/icon/runtime/components/css.js';
                 </nuxt-link>
             </div>
             <div>
-                <button>
-                    <nuxt-icon-css name="icons:exit" />
-                </button>
+                <div style="display: flex;flex-direction: column;gap: 4px;justify-content: center;">
+                    <div v-if="store.token">
+                        <img style="width: 24px;height: 24px; border-radius: 50%;"
+                            src="~/assets//990e8d337d62d336a9b0fa0fc4138903de3650d7.png" alt="">
+                    </div>
+                    <button @click="exit">
+                        <nuxt-icon-css name="icons:exit" />
+                    </button>
+                </div>
             </div>
         </div>
         <div class="content">
