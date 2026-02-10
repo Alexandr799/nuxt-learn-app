@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useFetch, useSeoMeta } from '#app';
+import { useAuthStore } from '#imports';
 import { computed, ref, warn, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { apiRoutes } from '~/api';
@@ -12,7 +13,7 @@ const SORTS = {
     rating: 'По рейтингу'
 }
 useSeoMeta({
-    title:'Главная',
+    title: 'Главная',
     description: 'Сайт для голосования по идеям.'
 });
 // Типовый гвард
@@ -21,7 +22,7 @@ function isSortKey(key: string): key is keyof typeof SORTS {
 }
 const router = useRouter()
 const route = useRoute()
-
+const authStore = useAuthStore()
 
 const sortType = queryParamToString(route.query.sort) ?? ''
 const checkedSort = ref<keyof typeof SORTS>(
@@ -71,6 +72,15 @@ const updatePost = (post: Post) => {
 function changePage(page: number) {
     pageCurrent.value = page
 }
+
+async function deletePost(post: Post) {
+    await $fetch(apiRoutes().postsById(post.id.toString()), {
+        method: 'DELETE', headers: {
+            Authorization: `Bearer ${authStore.token}`
+        }
+    })
+    await dataPosts.refresh()
+}
 </script>
 
 <template>
@@ -83,14 +93,10 @@ function changePage(page: number) {
         </div>
     </div>
     <div class="post-wrapper" v-for="(post, index) in dataPosts.data.value?.posts">
-        <PostCard :key="post.id" :post="post" @update-post="updatePost" />
+        <PostCard @delete-post="deletePost" :key="post.id" :post="post" @update-post="updatePost" />
     </div>
-    <Pagination
-        v-if="dataPosts.data.value"
-        :current-page="dataPosts.data.value.page"
-        :total-pages="dataPosts.data.value.total_pages"
-        @change-page="changePage"
-    />
+    <Pagination v-if="dataPosts.data.value" :current-page="dataPosts.data.value.page"
+        :total-pages="dataPosts.data.value.total_pages" @change-page="changePage" />
 </template>
 
 <style scoped>

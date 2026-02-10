@@ -14,6 +14,6 @@ const model = defineModel<string>()
     outline: none;
 }
 input::placeholder {
-    color:#000000CC;
+    color:var(--color-6);
 }
 </style>

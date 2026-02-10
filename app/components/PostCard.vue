@@ -7,6 +7,7 @@ import { timeAgo } from '~/utils';
 const props = defineProps<{ post: Post }>()
 const emit = defineEmits<{
     (e: 'updatePost', post: Post): void
+    (e: 'deletePost', post: Post): void
 }>()
 const actionPostStore = useActionPostStore()
 async function like(id: number) {
@@ -70,10 +71,10 @@ async function disLike(id: number) {
                 </div>
             </div>
             <div class="edit-block">
-                <button>
+                <button @click="emit('deletePost', post)">
                     <NuxtIconCss name="icons:trash" />
                 </button>
-                <button>
+                <NuxtLink :to="`/post/edit/${post.id}`">
                     <span class="edit-button">
                         <span>
                             <NuxtIconCss name="icons:edit" />
@@ -82,7 +83,7 @@ async function disLike(id: number) {
                             Изменить
                         </span>
                     </span>
-                </button>
+                </NuxtLink>
             </div>
         </div>
     </article>
@@ -161,4 +162,5 @@ async function disLike(id: number) {
     display: flex;
     gap: 4px;
 }
+
 </style>
